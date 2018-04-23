@@ -11,13 +11,13 @@ UNAME := $(shell uname -r)
 KDIR := /lib/modules/$(UNAME)/build
 
 STD_CFLAGS  := $(shell $(XENO_CONFIG) --skin=$(XENOMAI_SKIN) --skin=rtdm --cflags) -I. -g -DXENOMAI_SKIN_$(XENOMAI_SKIN)
-STD_LDFLAGS := $(shell $(XENO_CONFIG) --skin=$(XENOMAI_SKIN) --skin=rtdm --ldflags) -g 
+STD_LDFLAGS := $(shell $(XENO_CONFIG) --skin=$(XENOMAI_SKIN) --skin=rtdm --ldflags) -g
 EXTRA_CFLAGS += $(shell $(XENO_CONFIG) --skin=$(XENOMAI_SKIN) --skin=rtdm --cflags)
-EXTRA_CFLAGS += $(CFLAGS) 
+EXTRA_CFLAGS += $(CFLAGS)
 
 MODULE_NAME=rtdm_pruss_irq
 TEST=$(MODULE_NAME)-test
-obj-m := $(MODULE_NAME).o 
+obj-m := $(MODULE_NAME).o
 
 all: $(MODULE_NAME).ko $(TEST)
 	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules Q=
@@ -26,7 +26,7 @@ $(MODULE_NAME).ko: $(MODULE_NAME).c
 
 test: $(TEST)
 $(TEST): $(TEST).c $(TEST)_bin.h
-	$(CC) -o $@ $< $(STD_CFLAGS) $(STD_LDFLAGS) -I/root/Bela/include /root/Bela/lib/libprussdrv.a
+	$(CC) -o $@ $< $(STD_CFLAGS) $(STD_LDFLAGS) /usr/local/lib/libprussdrv.a
 
 install:
 	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules_install
