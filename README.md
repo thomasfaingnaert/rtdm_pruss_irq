@@ -1,3 +1,17 @@
+# Install a pre-compiled version
+You can install a precompiled version using:
+```bash
+wget https://github.com/thomasfaingnaert/rtdm_pruss_irq/releases/download/v1.0/rtdm_pruss_irq.ko
+sudo cp rtdm_pruss_irq.ko /lib/modules/`uname -r`/extra
+sudo depmod -a
+sudo modprobe rtdm_pruss_irq
+```
+
+To check if the module is loaded, run:
+```bash
+lsmod | grep rtdm_pruss_irq
+```
+
 # Build from source
 1. Make sure you are running a Xenomai kernel. You can verify this by executing:
 ```bash
